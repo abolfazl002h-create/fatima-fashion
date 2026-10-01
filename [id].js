@@ -1,0 +1,1 @@
+export async function onRequestDelete({request,env,params}){if((request.headers.get("authorization")||"")!=="Bearer "+env.ADMIN_PASSWORD)return Response.json({error:"unauthorized"},{status:401});await env.DB.prepare("DELETE FROM products WHERE id=?").bind(Number(params.id)).run();return Response.json({ok:true})}
