@@ -1,0 +1,3 @@
+async function getAll(env){let r=await env.DB.prepare("SELECT * FROM products ORDER BY id DESC").all();return r.results||[]}
+export async function onRequestGet({env}){return Response.json(await getAll(env))}
+export async function onRequestPost({request,env}){if((request.headers.get("authorization")||"")!=="Bearer "+env.ADMIN_PASSWORD)return Response.json({error:"unauthorized"},{status:401});let b=await request.json();if(!b.name)return Response.json({error:"name required"},{status:400});await env.DB.prepare("INSERT INTO products(name,price,colors,image,description) VALUES(?,?,?,?,?)").bind(b.name,Number(b.price||0),b.colors||"",b.image||"",b.description||"").run();return Response.json({ok:true})}
