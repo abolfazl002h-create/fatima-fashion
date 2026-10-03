@@ -1,1 +1,0 @@
-export async function onRequestPost({request,env}){const b=await request.json();if(!env.ADMIN_PASSWORD)return Response.json({ok:false,error:"ADMIN_PASSWORD binding missing"},{status:500});if(b.password!==env.ADMIN_PASSWORD)return Response.json({ok:false},{status:401});return Response.json({ok:true,token:env.ADMIN_PASSWORD});}
