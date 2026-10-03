@@ -1,0 +1,1 @@
+CREATE TABLE products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, price INTEGER DEFAULT 0, colors TEXT, image TEXT, description TEXT);
